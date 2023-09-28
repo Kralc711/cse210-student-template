@@ -13,7 +13,7 @@ Console.WriteLine("Jobs: ");
 foreach (Job job  in _jobs)
 {
     job._printDetails();
-};
+}
 
 }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Contracts;
 
 class Program
 {
@@ -16,6 +17,8 @@ class Program
         Resume resume = new Resume();
         resume.Name = "Clark Rushton";
 
+        resume._jobs.Add(job1);
+        resume._jobs.Add(job2);
         resume.display();
     }
 }
