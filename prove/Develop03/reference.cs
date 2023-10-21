@@ -1,45 +1,47 @@
-public class Reference{
+using System;
+
+public class Reference
+{
     private string _book;
-
     private int _chapter;
-
     private int _verse;
 
-    public string SetBook()
+    public void SetBook()
     {
         Console.WriteLine("Enter book of Scripture");
-        string book = Console.ReadLine(); 
-        return book;
+        _book = Console.ReadLine();
     }
 
-    public int SetChapter()
+    public void SetChapter()
     {
         Console.WriteLine("Enter chapter");
-        
-        int chapter = int.Parse(Console.ReadLine());
-        
-        return chapter;
+        _chapter = int.Parse(Console.ReadLine());
     }
 
-    public int SetVerse()
+    public void SetVerse()
     {
         Console.WriteLine("Enter verse");
-        int verse = int.Parse(Console.ReadLine()):
-        return verse;
-    } 
-    public string Getbook()
+        _verse = int.Parse(Console.ReadLine());
+    }
+
+    public string GetBook()
     {
         return _book;
     }
 
-public int GetChapter()
+    public int GetChapter()
     {
         return _chapter;
     }
 
-public int GetVerse()
+    public int GetVerse()
     {
         return _verse;
     }
 
+    // Example of how to use the setter and getter methods
+    public void DisplayReference()
+    {
+        Console.WriteLine($"Reference: {_book} {_chapter}:{_verse}");
+    }
 }
