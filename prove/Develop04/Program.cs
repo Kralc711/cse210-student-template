@@ -4,56 +4,59 @@ class Program
 {
     static void Main()
     {
-        int menu = 0;
-        while(menu != 4)
+    {
+        Console.WriteLine("Welcome to the Mindfulness App!");
+
+        Console.Write("Enter the duration of the activity in seconds: ");
+        int duration = int.Parse(Console.ReadLine());
+
+        Console.WriteLine("Choose an activity: (1) Breathing, (2) Reflection, (3) Listing");
+        string activityChoice = Console.ReadLine();
+
+        Activity activity = null;
+        switch (activityChoice)
         {
-            Console.WriteLine("Reflection Activity 1 ");
-            Console.WriteLine("Breathing Activity 2 ");
-            Console.WriteLine("Listing Activity 3 ");
-            Console.WriteLine("Close 4 ");
-            menu = int.Parse(Console.ReadLine());
-            switch(menu)
-            {
-                case 1:
-                
-                LoadingBar(5);
-
+            case "1":
+                LoadingBar(2);
+                activity = new BreathingActivity(duration);
                 break;
-                case 2:
-                
-                LoadingBar(30);
-                
+            case "2":
+                LoadingBar(2);
+                activity = new ReflectionActivity(duration);
                 break;
-                case 3:
-                
-                LoadingBar(7);
-                
+            case "3":
+                LoadingBar(2);
+                activity = new ListingActivity(duration);
                 break;
-
-            }
-        
+            default:
+                LoadingBar(2);
+                Console.WriteLine("Invalid choice.");
+                return;
         }
+
+        activity.StartActivity();
+    }
     }
 
 
     static void LoadingBar(int BarLength)
     {
         string bar = "░";
-        while(bar.Length < BarLength*10)
+        while(bar.Length < BarLength*50)
         {
             bar = bar + "░";
         }
 
         Random random = new Random();
-        Console.WriteLine(bar); // Print the current string
+        Console.WriteLine("Loading: ["+bar+"]"); // Print the current string
         for (int i = 0; i < bar.Length; i++)
         {
             
             bar = bar.Remove(bar.LastIndexOf('░'), 1).Insert(0, "▓"); // Replace one '+' with '-'
 
             // Generate a random wait time with mean of 1.5 seconds and standard deviation of 0.5 seconds
-            double mean = 0.1; // mean in seconds
-            double stdDev = 0.1; // standard deviation in seconds
+            double mean = 0.01; // mean in seconds
+            double stdDev = 0.05; // standard deviation in seconds
 
             // Generate a random number from a normal distribution with mean and standard deviation
             double delay = Math.Max(0, random.NextGaussian(mean, stdDev));
@@ -63,10 +66,10 @@ class Program
             System.Threading.Thread.Sleep(milliseconds); // Add a random delay to slow down the output
 
             Console.Clear(); // Clear the console
-            Console.WriteLine(bar); // Print the current string
+            Console.WriteLine("Loading: ["+bar+"]"); // Print the current string
         }
         Console.Clear(); // Clear the console
-        Console.WriteLine("Finished");
+        
     }
 }
 
