@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-class DiceRoller
+public class DiceRoller
 {
     static Dictionary<string, int> damages = new Dictionary<string, int>
     {
@@ -56,18 +56,19 @@ class DiceRoller
         }
     }
 
-    static int DiceRoll(int diceSides, int diceCount, string damageType)
+    public static int DiceRoll(int diceSides, int diceCount)
     {
         Random random = new Random();
         int roll = 0;
-
+        int damage = 0;
         for (int i = 0; i < diceCount; i++)
         {
             roll += random.Next(1, diceSides + 1);
+            damage += roll;
         }
 
-        damages[damageType] += roll;
-        return 1;
+        
+        return damage;
     }
 
     static int ResistanceOrSave(int damage)
