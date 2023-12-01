@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-class Program
+class DiceRoller
 {
     static Dictionary<string, int> damages = new Dictionary<string, int>
     {
