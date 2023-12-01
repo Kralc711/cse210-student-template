@@ -113,19 +113,30 @@ public class Combat
         // Monster attacks with its two attacks (if available)
         if(monster.Attack2Damage != "N/A")
         {
-        int damage1 = ParseAndRollAttackDamage(monster.Attack1Damage);
-        Console.WriteLine($"{monster.Name} attacks with its first attack, dealing {damage1} damage!");
+            AttackModifierCalculator attackModifierCalculator = new AttackModifierCalculator();
+
+            int ToHit = AttackModifierCalculator.CalculateAttackRoll(this.monster);
+
+        int damage = ParseAndRollAttackDamage(monster.Attack1Damage);
+        Console.WriteLine($"{monster.Name} attacks with its first attack, {ToHit} to hit, dealing {damage} damage!");
         }
         else
         {
-        int damage1 = ParseAndRollAttackDamage(monster.Attack1Damage);
-            Console.WriteLine($"{monster.Name} attacks, dealing {damage1} damage!");
+        AttackModifierCalculator attackModifierCalculator = new AttackModifierCalculator();
+
+            int ToHit = AttackModifierCalculator.CalculateAttackRoll(this.monster);
+
+        int damage = ParseAndRollAttackDamage(monster.Attack1Damage);
+        Console.WriteLine($"{monster.Name} attacks with its first attack, {ToHit} to hit, dealing {damage} damage!");
         }
         if(monster.Attack2Damage != "N/A")
-        {
-        int damage2 = ParseAndRollAttackDamage(monster.Attack2Damage);
-        Console.WriteLine($"{monster.Name} attacks with its second attack, dealing {damage2} damage!");
-    }
+        {AttackModifierCalculator attackModifierCalculator = new AttackModifierCalculator();
+
+            int ToHit = AttackModifierCalculator.CalculateAttackRoll(this.monster);
+
+        int damage = ParseAndRollAttackDamage(monster.Attack2Damage);
+        Console.WriteLine($"{monster.Name} attacks with its first attack, {ToHit} to hit, dealing {damage} damage!");
+        }
     }
 
     private int ParseAndRollAttackDamage(string attackDamage)
@@ -162,7 +173,7 @@ public class Combat
             }
             else
             {
-                // No modifier
+                
                 diceSize = int.Parse(parts[1]);
                 return (numberOfDice, diceSize, 0);
             }
@@ -170,4 +181,6 @@ public class Combat
 
         throw new ArgumentException("Invalid dice input format. Use the format 'XdY+Z'.");
     }
+
+    
 }

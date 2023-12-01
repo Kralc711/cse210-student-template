@@ -1,41 +1,67 @@
-using System;
-using System.Windows;
-using System.Media;
-
-public class CustomSoundPlayer
+class AttackModifierCalculator
 {
-    private readonly string filePath;
+    static int CallModifier(double cr,string size)
 
-    public CustomSoundPlayer(string filePath)
+        {
+
+            int proficiencyBonus = CalculateProficiencyBonus(cr);
+            int abilityScoreModifier = CalculateAbilityScoreModifier(size);
+
+            int attackModifier = abilityScoreModifier + proficiencyBonus;
+
+            
+            return(attackModifier);
+        }
+
+
+    static int CalculateProficiencyBonus(double cr)
     {
-        this.filePath = filePath;
+        if (cr < 5) return 2;
+        else if (cr < 9) return 3;
+        else if (cr < 13) return 4;
+        else if (cr < 17) return 5;
+        else return 6;
     }
 
-    public void PlaySync()
+    static int CalculateAbilityScoreModifier(string size)
     {
-        try
+        switch (size.ToLower())
         {
-            SoundPlayer player = new SoundPlayer(filePath);
-            player.PlaySync(); // Synchronously play the audio
+            case "tiny":
+                return -1;
+            case "small":
+                return 0;
+            case "medium":
+                return 2;
+            case "large":
+                return 3;
+            case "huge":
+                return 4;
+            case "gargantuan":
+                return 5;
+            default:
+                Console.WriteLine("Invalid size category. Assuming medium size.");
+                return 2;
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error playing WAV: {ex.Message}");
-        }
-        public SoundPlayer();
     }
+
+    public static int CalculateAttackRoll(Monster monster)
+    {
+        int proficiencyBonus = CalculateProficiencyBonus(monster.CRDecimal);
+        int abilityScoreModifier = CalculateAbilityScoreModifier(monster.Size);
+
+        int attackModifier = abilityScoreModifier + proficiencyBonus;
+
+        // Roll a 20-sided dice
+
+        DiceRoller diceRoller = new DiceRoller();
+        int diceNumb = 1;
+        int dicebig = 20;
+        int diceRoll = DiceRoller.DiceRoll(dicebig,diceNumb);
+
+        int AttackRollTotal = attackModifier + diceRoll;
+
+        return AttackRollTotal;
+    }
+
 }
-
-
-// class Program
-// {
-//     static void Main()
-//     {
-//         CustomSoundPlayer soundPlayer = new CustomSoundPlayer("final\\FinalProject\\Never Gonna Give You Up - Rick Astley.wav");
-//         soundPlayer.PlaySync();
-
-//         Console.WriteLine("Press any key to exit...");
-//         Console.ReadKey();
-//     }
-// }
-
